@@ -32,27 +32,32 @@ pytest.ini      base-url, screenshot/video/trace-on-failure, markers, BDD featur
 
 ```powershell
 python -m venv venv
-venv\Scripts\python.exe -m pip install -r requirements.txt
-venv\Scripts\python.exe -m playwright install chromium
+venv\Scripts\activate
+pip install -r requirements.txt
+playwright install chromium
 ```
 
 ## Running tests
 
+All commands below assume the venv is activated (`venv\Scripts\activate`) - your prompt
+should show `(venv)`. If it isn't activated, prefix any command with `venv\Scripts\python.exe -m`
+(e.g. `venv\Scripts\python.exe -m pytest`) instead of running `pytest` directly.
+
 ```powershell
 # everything
-venv\Scripts\python.exe -m pytest
+pytest
 
 # one layer at a time
-venv\Scripts\python.exe -m pytest tests/test_*.py tests/test_admin.py -v   # UI + admin
-venv\Scripts\python.exe -m pytest tests/api -v                            # API only, no browser
-venv\Scripts\python.exe -m pytest tests/bdd -v                            # BDD only
+pytest tests/test_*.py tests/test_admin.py -v   # UI + admin
+pytest tests/api -v                            # API only, no browser
+pytest tests/bdd -v                            # BDD only
 
 # by marker
-venv\Scripts\python.exe -m pytest -m smoke      # fast, high-value happy paths
-venv\Scripts\python.exe -m pytest -m bug        # known-bug regression tests only
+pytest -m smoke      # fast, high-value happy paths
+pytest -m bug        # known-bug regression tests only
 
 # watch the browser instead of running headless
-venv\Scripts\python.exe -m pytest --headed
+pytest --headed
 ```
 
 Expect **25 passed, 11 xfailed** on a full run. The `xfail`s are not failures - they're
@@ -79,13 +84,13 @@ To keep a layer's report separate from the others, override the paths on the com
 (last value wins over `pytest.ini`'s defaults):
 
 ```powershell
-venv\Scripts\python.exe -m pytest tests/api --html=reports/api-report.html --self-contained-html --alluredir=reports/allure-results-api
+pytest tests/api --html=reports/api-report.html --self-contained-html --alluredir=reports/allure-results-api
 ```
 
 Debugging a failed test's trace:
 
 ```powershell
-venv\Scripts\python.exe -m playwright show-trace reports/artifacts/<test-slug>/trace.zip
+playwright show-trace reports/artifacts/<test-slug>/trace.zip
 ```
 
 ## CI
