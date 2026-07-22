@@ -88,6 +88,13 @@ Debugging a failed test's trace:
 venv\Scripts\python.exe -m playwright show-trace reports/artifacts/<test-slug>/trace.zip
 ```
 
+## CI
+
+`.github/workflows/tests.yml` runs the full suite on every push/PR to `main`/`master`: installs
+dependencies, installs the Chromium browser, runs `pytest`, and uploads the HTML report, Allure
+results, and any failure screenshots/videos/traces as workflow artifacts - even when tests fail
+(`if: always()`).
+
 ## Design notes
 
 - **Page Object Model**: page objects hold locators and actions only; every assertion lives in
