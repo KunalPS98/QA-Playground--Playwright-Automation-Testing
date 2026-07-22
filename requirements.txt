@@ -1,0 +1,8 @@
+playwright
+pytest
+pytest-playwright
+pytest-html
+allure-pytest
+requests
+pytest-bdd
+pytest-sugar
