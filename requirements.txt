@@ -1,8 +1,8 @@
-playwright
-pytest
-pytest-playwright
-pytest-html
-allure-pytest
-requests
-pytest-bdd
-pytest-sugar
+playwright==1.61.0
+pytest==9.1.1
+pytest-playwright==0.8.0
+pytest-html==4.2.0
+allure-pytest==2.16.0
+requests==2.34.2
+pytest-bdd==8.1.0
+pytest-sugar==1.1.1
